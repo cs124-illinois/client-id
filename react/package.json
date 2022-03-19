@@ -1,6 +1,6 @@
 {
   "name": "@cs124/client-id",
-  "version": "2022.3.0",
+  "version": "2022.3.1",
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
-    "public-ip": "5.0.0",
+    "public-ip": "4.0.4",
     "uuid": "8.3.2"
   },
   "peerDependencies": {
