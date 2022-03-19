@@ -1,6 +1,6 @@
 {
   "name": "@cs124/client-id",
-  "version": "2021.7.2",
+  "version": "2022.3.0",
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
@@ -14,26 +14,26 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
-    "public-ip": "^4.0.4",
-    "uuid": "^8.3.2"
+    "public-ip": "5.0.0",
+    "uuid": "8.3.2"
   },
   "peerDependencies": {
     "react": ">=17"
   },
   "devDependencies": {
-    "@types/react": "17.0.14",
-    "@types/uuid": "8.3.1",
-    "@typescript-eslint/eslint-plugin": "4.28.3",
-    "@typescript-eslint/parser": "4.28.3",
-    "eslint": "7.31.0",
-    "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "npm-check-updates": "11.8.3",
-    "prettier": "2.3.2",
-    "prettier-package-json": "2.6.0",
-    "prettier-plugin-organize-imports": "2.2.0",
+    "@types/react": "17.0.41",
+    "@types/uuid": "8.3.4",
+    "@typescript-eslint/eslint-plugin": "5.15.0",
+    "@typescript-eslint/parser": "5.15.0",
+    "eslint": "8.11.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "npm-check-updates": "12.5.4",
+    "prettier": "2.6.0",
+    "prettier-package-json": "2.6.3",
+    "prettier-plugin-organize-imports": "2.3.4",
     "react": "17.0.2",
     "rimraf": "3.0.2",
-    "typescript": "4.3.5"
+    "typescript": "4.6.2"
   }
 }
