@@ -1,5 +1,5 @@
 import publicIP from "public-ip"
-import React, { createContext, useContext, useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useRef, useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 export interface ClientIDProviderProps {
@@ -17,48 +17,44 @@ export const ClientIDContext = createContext<ClientIDContext>({
 })
 
 export const ClientIDProvider: React.FC<ClientIDProviderProps> = ({ IPinterval = 5 * 6 * 1000, children }) => {
-  const [browserID, setBrowserID] = useState<string | undefined>()
-  useEffect(() => {
-    const id = localStorage.getItem("client-id") || uuidv4()
-    localStorage.setItem("client-id", id)
-    setBrowserID(id)
-  }, [])
-  const [tabID, setTabID] = useState<string | undefined>()
-  useEffect(() => {
-    const id = sessionStorage.getItem("client-id") || uuidv4()
-    sessionStorage.setItem("client-id", id)
-    setTabID(id)
-  }, [])
-  const [IPv4, setIPv4] = useState<string | undefined>(undefined)
-  const [IPv6, setIPv6] = useState<string | undefined>(undefined)
+  const browser = useRef<string>((typeof window !== "undefined" && localStorage.getItem("client-id")) || uuidv4())
+  const tab = useRef<string>((typeof window !== "undefined" && sessionStorage.getItem("client-id")) || uuidv4())
 
   useEffect(() => {
-    const checkIP = () => {
-      publicIP
-        .v4()
-        .then((_ip) => {
-          setIPv4(_ip)
-        })
-        .catch(() => {
-          setIPv4(undefined)
-        })
-      publicIP
-        .v6()
-        .then((_ip) => {
-          setIPv6(_ip)
-        })
-        .catch(() => {
-          setIPv6(undefined)
-        })
+    localStorage.setItem("client-id", browser.current)
+    sessionStorage.setItem("client-id", tab.current)
+  }, [])
+
+  const [ip, setIP] = useState<{ v4?: string; v6?: string }>({})
+
+  useEffect(() => {
+    const checkIP = async () => {
+      let v4
+      try {
+        v4 = await publicIP.v4()
+      } catch (err) {
+        //
+      }
+      let v6
+      try {
+        v6 = await publicIP.v6()
+      } catch (err) {
+        //
+      }
+      setIP({ v4, v6 })
     }
     const timer = setInterval(() => checkIP, IPinterval)
     checkIP()
     return () => {
       clearInterval(timer)
     }
-  }, [IPinterval, setIPv4, setIPv6])
+  }, [IPinterval])
 
-  return <ClientIDContext.Provider value={{ browserID, tabID, IPv4, IPv6 }}>{children}</ClientIDContext.Provider>
+  return (
+    <ClientIDContext.Provider value={{ browserID: browser.current, tabID: tab.current, IPv4: ip.v4, IPv6: ip.v6 }}>
+      {children}
+    </ClientIDContext.Provider>
+  )
 }
 
 export const useClientID = (): ClientIDContext => useContext(ClientIDContext)
