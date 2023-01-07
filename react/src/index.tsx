@@ -1,5 +1,5 @@
 import publicIP from "public-ip"
-import React, { createContext, useContext, useEffect, useRef, useState } from "react"
+import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 export interface ClientIDProviderProps {
@@ -16,7 +16,10 @@ export const ClientIDContext = createContext<ClientIDContext>({
   tabID: "",
 })
 
-export const ClientIDProvider: React.FC<ClientIDProviderProps> = ({ IPinterval = 5 * 6 * 1000, children }) => {
+export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>> = ({
+  IPinterval = 5 * 6 * 1000,
+  children,
+}) => {
   const browser = useRef<string>((typeof window !== "undefined" && localStorage.getItem("client-id")) || uuidv4())
   const tab = useRef<string>((typeof window !== "undefined" && sessionStorage.getItem("client-id")) || uuidv4())
 

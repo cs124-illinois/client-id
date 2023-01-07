@@ -1,7 +1,15 @@
 import { ClientIDProvider, useClientID } from "@cs124/client-id"
+import { useEffect, useState } from "react"
 
 const ClientIDDemo: React.FC = () => {
+  const [display, setDisplay] = useState(false)
+  useEffect(() => {
+    setDisplay(true)
+  }, [])
   const { browserID, tabID, IPv4, IPv6 } = useClientID()
+  if (!display) {
+    return null
+  }
   return (
     <div>
       {browserID && <p>Browser ID: {browserID}</p>}
