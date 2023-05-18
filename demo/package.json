@@ -1,30 +1,39 @@
 {
   "private": true,
   "name": "demo",
-  "version": "2023.1.0",
+  "version": "2023.5.0",
   "scripts": {
     "build": "next build",
+    "checker": "npm run eslint && npm run tsc && npm run prettier && npm run depcheck",
+    "depcheck": "depcheck --ignore-dirs .next,.rush,bundled --ignores=eslint-*,prettier-plugin-*",
+    "eslint": "eslint --fix pages --max-warnings=0 --ext .ts,.tsx",
     "lint": "next lint",
+    "ncu": "ncu",
+    "prettier": "prettier -w --plugin=prettier-plugin-organize-imports . && prettier-package-json --write",
     "serve": "next start",
     "start": "next dev",
-    "prettier": "prettier -w --plugin=prettier-plugin-organize-imports . && prettier-package-json --write",
-    "backend": "docker-compose --env-file .env.development up"
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@cs124/client-id": "2023.1.0",
-    "next": "13.1.1",
+    "@cs124/client-id": "2023.5.0",
+    "next": "13.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/node": "18.11.18",
-    "@types/react": "18.0.26",
-    "eslint": "8.31.0",
-    "eslint-config-next": "13.1.1",
-    "prettier": "2.8.1",
+    "@types/node": "20.2.1",
+    "@types/react": "18.2.6",
+    "depcheck": "1.4.3",
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.2",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "npm-check-updates": "16.10.12",
+    "prettier": "2.8.8",
     "prettier-package-json": "2.8.0",
-    "prettier-plugin-organize-imports": "3.2.1",
-    "sass": "1.57.1",
-    "typescript": "4.9.4"
+    "prettier-plugin-organize-imports": "3.2.2",
+    "sass": "1.62.1",
+    "typescript": "5.0.4"
   }
 }

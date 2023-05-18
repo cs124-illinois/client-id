@@ -1,4 +1,15 @@
 {
-    "private": true,
-    "workspaces": ["react", "demo"]
+  "private": true,
+  "scripts": {
+    "ncu": "ncu",
+    "prettier": "prettier-package-json --write"
+  },
+  "workspaces": [
+    "react",
+    "demo"
+  ],
+  "devDependencies": {
+    "npm-check-updates": "16.10.12",
+    "prettier-package-json": "2.8.0"
+  }
 }
