@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid"
 
 export interface ClientIDProviderProps {
   IPinterval?: number
+  disableIP?: boolean
 }
 export interface ClientIDContext {
   browserID?: string
@@ -18,6 +19,7 @@ export const ClientIDContext = createContext<ClientIDContext>({
 
 export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>> = ({
   IPinterval = 5 * 6 * 1000,
+  disableIP,
   children,
 }) => {
   const browser = useRef<string>((typeof window !== "undefined" && localStorage.getItem("client-id")) || uuidv4())
@@ -31,6 +33,9 @@ export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>
   const [ip, setIP] = useState<{ v4?: string; v6?: string }>({})
 
   useEffect(() => {
+    if (disableIP) {
+      return
+    }
     const checkIP = async () => {
       let v4
       try {
@@ -51,7 +56,7 @@ export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>
     return () => {
       clearInterval(timer)
     }
-  }, [IPinterval])
+  }, [IPinterval, disableIP])
 
   return (
     <ClientIDContext.Provider value={{ browserID: browser.current, tabID: tab.current, IPv4: ip.v4, IPv6: ip.v6 }}>
