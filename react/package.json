@@ -1,13 +1,14 @@
 {
   "name": "@cs124/client-id",
-  "version": "2023.8.0",
+  "version": "2024.7.0",
   "license": "MIT",
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "checker": "npm run eslint && npm run tsc && npm run prettier && npm run depcheck && npm run build",
     "clean": "rimraf dist",
-    "depcheck": "depcheck --ignores=prettier-plugin-*,rimraf",
+    "depcheck": "depcheck --ignores=prettier-plugin-*,rimraf --ignore-dirs=dist",
     "eslint": "eslint src/**",
     "ncu": "ncu",
     "prettier": "prettier -w --plugin=prettier-plugin-organize-imports . && prettier-package-json --write",
@@ -18,27 +19,25 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
-    "public-ip": "4.0.4",
-    "uuid": "9.0.0"
+    "public-ip": "7.0.1"
   },
   "peerDependencies": {
     "react": "16.x || 18.x"
   },
   "devDependencies": {
-    "@types/react": "18.2.20",
-    "@types/uuid": "9.0.2",
-    "@typescript-eslint/eslint-plugin": "6.4.0",
-    "@typescript-eslint/parser": "6.4.0",
-    "depcheck": "1.4.3",
+    "@types/react": "18.3.3",
+    "@typescript-eslint/eslint-plugin": "7.18.0",
+    "@typescript-eslint/parser": "7.18.0",
+    "depcheck": "1.4.7",
     "eslint": "8.47.0",
-    "eslint-config-prettier": "9.0.0",
-    "eslint-plugin-react-hooks": "4.6.0",
-    "npm-check-updates": "16.12.2",
-    "prettier": "3.0.2",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-react-hooks": "4.6.2",
+    "npm-check-updates": "17.0.0",
+    "prettier": "3.3.3",
     "prettier-package-json": "2.8.0",
-    "prettier-plugin-organize-imports": "3.2.3",
-    "react": "18.2.0",
-    "rimraf": "5.0.1",
-    "typescript": "5.1.6"
+    "prettier-plugin-organize-imports": "4.0.0",
+    "react": "18.3.1",
+    "rimraf": "6.0.1",
+    "typescript": "5.5.4"
   }
 }
