@@ -1,10 +1,14 @@
-import publicIP from "public-ip"
+import crypto from "crypto"
+import { publicIpv4, publicIpv6 } from "public-ip"
+
 import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from "react"
-import { v4 as uuidv4 } from "uuid"
+
+const generateRandomID = (): string => crypto.randomBytes(20).toString("base64")
 
 export interface ClientIDProviderProps {
   IPinterval?: number
   disableIP?: boolean
+  verbose?: boolean
 }
 export interface ClientIDContext {
   browserID?: string
@@ -20,15 +24,21 @@ export const ClientIDContext = createContext<ClientIDContext>({
 export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>> = ({
   IPinterval = 5 * 6 * 1000,
   disableIP,
+  verbose,
   children,
 }) => {
-  const browser = useRef<string>((typeof window !== "undefined" && localStorage.getItem("client-id")) || uuidv4())
-  const tab = useRef<string>((typeof window !== "undefined" && sessionStorage.getItem("client-id")) || uuidv4())
+  const browser = useRef<string>(
+    (typeof window !== "undefined" && localStorage.getItem("client-id")) || generateRandomID(),
+  )
+  const tab = useRef<string>(
+    (typeof window !== "undefined" && sessionStorage.getItem("client-id")) || generateRandomID(),
+  )
 
   useEffect(() => {
+    verbose && console.log(`Browser: ${browser.current}, Tab: ${tab.current}`)
     localStorage.setItem("client-id", browser.current)
     sessionStorage.setItem("client-id", tab.current)
-  }, [])
+  }, [verbose])
 
   const [ip, setIP] = useState<{ v4?: string; v6?: string }>({})
 
@@ -39,13 +49,15 @@ export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>
     const checkIP = async () => {
       let v4
       try {
-        v4 = await publicIP.v4()
+        v4 = await publicIpv4()
+        verbose && console.log(`IPv4: ${v4}`)
       } catch (err) {
         //
       }
       let v6
       try {
-        v6 = await publicIP.v6()
+        v6 = await publicIpv6()
+        verbose && console.log(`IPv6: ${v4}`)
       } catch (err) {
         //
       }
@@ -56,7 +68,7 @@ export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>
     return () => {
       clearInterval(timer)
     }
-  }, [IPinterval, disableIP])
+  }, [IPinterval, disableIP, verbose])
 
   return (
     <ClientIDContext.Provider value={{ browserID: browser.current, tabID: tab.current, IPv4: ip.v4, IPv6: ip.v6 }}>
