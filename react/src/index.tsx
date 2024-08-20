@@ -8,6 +8,8 @@ const generateRandomID = (): string => crypto.randomBytes(20).toString("base64")
 export interface ClientIDProviderProps {
   IPinterval?: number
   disableIP?: boolean
+  cookies?: boolean
+  domain?: string
   verbose?: boolean
 }
 export interface ClientIDContext {
@@ -25,6 +27,8 @@ export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>
   IPinterval = 5 * 6 * 1000,
   disableIP,
   verbose,
+  cookies,
+  domain,
   children,
 }) => {
   const browser = useRef<string>(
@@ -39,6 +43,21 @@ export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>
     localStorage.setItem("client-id", browser.current)
     sessionStorage.setItem("client-id", tab.current)
   }, [verbose])
+
+  useEffect(() => {
+    if (!cookies) {
+      document.cookie = `browserID=${browser.current}; max-age=0;`
+      document.cookie = `tabID=${tab.current}; max-age=0;`
+      return
+    }
+    if (domain) {
+      document.cookie = `browserID=${browser.current}; max-age=31536000; path=/; samesite=lax; domain=${domain};`
+      document.cookie = `tabID=${tab.current}; max-age=31536000; path=/; samesite=lax; domain=${domain};`
+    } else {
+      document.cookie = `browserID=${browser.current}; max-age=31536000; path=/; samesite=lax;`
+      document.cookie = `tabID=${tab.current}; max-age=31536000; path=/; samesite=lax;`
+    }
+  }, [cookies, domain])
 
   const [ip, setIP] = useState<{ v4?: string; v6?: string }>({})
 
