@@ -19,26 +19,26 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
+    "base64url": "3.0.1",
     "public-ip": "7.0.1"
   },
   "peerDependencies": {
     "react": "16.x || 18.x"
   },
   "devDependencies": {
-    "@types/react": "18.3.3",
-    "@typescript-eslint/eslint-plugin": "8.2.0",
-    "@typescript-eslint/parser": "8.2.0",
+    "@eslint/js": "9.9.0",
+    "@types/react": "18.3.4",
     "depcheck": "1.4.7",
-    "eslint": "8.47.0",
+    "eslint": "9.9.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react-hooks": "4.6.2",
-    "npm-check-updates": "17.0.6",
+    "npm-check-updates": "17.1.0",
     "prettier": "3.3.3",
     "prettier-package-json": "2.8.0",
     "prettier-plugin-organize-imports": "4.0.0",
     "react": "18.3.1",
     "rimraf": "6.0.1",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "typescript-eslint": "8.2.0"
   }
 }

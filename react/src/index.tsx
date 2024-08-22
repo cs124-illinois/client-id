@@ -1,9 +1,10 @@
 import crypto from "crypto"
 import { publicIpv4, publicIpv6 } from "public-ip"
 
+import base64url from "base64url"
 import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from "react"
 
-const generateRandomID = (): string => crypto.randomBytes(20).toString("base64")
+const generateRandomID = (): string => base64url.fromBase64(crypto.randomBytes(20).toString("base64"))
 
 export interface ClientIDProviderProps {
   IPinterval?: number
@@ -23,6 +24,9 @@ export const ClientIDContext = createContext<ClientIDContext>({
   tabID: "",
 })
 
+const BROWSER_ID = "browserID"
+const TAB_ID = "tabID"
+
 export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>> = ({
   IPinterval = 5 * 6 * 1000,
   disableIP,
@@ -31,31 +35,29 @@ export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>
   domain,
   children,
 }) => {
-  const browser = useRef<string>(
-    (typeof window !== "undefined" && localStorage.getItem("client-id")) || generateRandomID(),
+  const browserID = useRef<string>(
+    (typeof window !== "undefined" && localStorage.getItem(BROWSER_ID)) || generateRandomID(),
   )
-  const tab = useRef<string>(
-    (typeof window !== "undefined" && sessionStorage.getItem("client-id")) || generateRandomID(),
-  )
+  const tabID = useRef<string>((typeof window !== "undefined" && sessionStorage.getItem(TAB_ID)) || generateRandomID())
 
   useEffect(() => {
-    verbose && console.log(`Browser: ${browser.current}, Tab: ${tab.current}`)
-    localStorage.setItem("client-id", browser.current)
-    sessionStorage.setItem("client-id", tab.current)
+    verbose && console.log(`Browser: ${browserID.current}, Tab: ${tabID.current}`)
+    localStorage.setItem(BROWSER_ID, browserID.current)
+    sessionStorage.setItem(TAB_ID, tabID.current)
   }, [verbose])
 
   useEffect(() => {
     if (!cookies) {
-      document.cookie = `browserID=${browser.current}; max-age=0;`
-      document.cookie = `tabID=${tab.current}; max-age=0;`
+      document.cookie = `${BROWSER_ID}=${browserID.current}; max-age=0;`
+      document.cookie = `${TAB_ID}=${tabID.current}; max-age=0;`
       return
     }
     if (domain) {
-      document.cookie = `browserID=${browser.current}; max-age=31536000; path=/; samesite=lax; domain=${domain};`
-      document.cookie = `tabID=${tab.current}; max-age=31536000; path=/; samesite=lax; domain=${domain};`
+      document.cookie = `${BROWSER_ID}=${browserID.current}; max-age=31536000; path=/; samesite=lax; domain=${domain};`
+      document.cookie = `${TAB_ID}=${tabID.current}; max-age=31536000; path=/; samesite=lax; domain=${domain};`
     } else {
-      document.cookie = `browserID=${browser.current}; max-age=31536000; path=/; samesite=lax;`
-      document.cookie = `tabID=${tab.current}; max-age=31536000; path=/; samesite=lax;`
+      document.cookie = `${BROWSER_ID}=${browserID.current}; max-age=31536000; path=/; samesite=lax;`
+      document.cookie = `${TAB_ID}=${tabID.current}; max-age=31536000; path=/; samesite=lax;`
     }
   }, [cookies, domain])
 
@@ -90,7 +92,7 @@ export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>
   }, [IPinterval, disableIP, verbose])
 
   return (
-    <ClientIDContext.Provider value={{ browserID: browser.current, tabID: tab.current, IPv4: ip.v4, IPv6: ip.v6 }}>
+    <ClientIDContext.Provider value={{ browserID: browserID.current, tabID: tabID.current, IPv4: ip.v4, IPv6: ip.v6 }}>
       {children}
     </ClientIDContext.Provider>
   )
