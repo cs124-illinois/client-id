@@ -49,15 +49,12 @@ export const ClientIDProvider: React.FC<PropsWithChildren<ClientIDProviderProps>
   useEffect(() => {
     if (!cookies) {
       document.cookie = `${BROWSER_ID}=${browserID.current}; max-age=0;`
-      document.cookie = `${TAB_ID}=${tabID.current}; max-age=0;`
       return
     }
     if (domain) {
       document.cookie = `${BROWSER_ID}=${browserID.current}; max-age=31536000; path=/; samesite=lax; domain=${domain};`
-      document.cookie = `${TAB_ID}=${tabID.current}; max-age=31536000; path=/; samesite=lax; domain=${domain};`
     } else {
       document.cookie = `${BROWSER_ID}=${browserID.current}; max-age=31536000; path=/; samesite=lax;`
-      document.cookie = `${TAB_ID}=${tabID.current}; max-age=31536000; path=/; samesite=lax;`
     }
   }, [cookies, domain])
 

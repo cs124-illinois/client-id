@@ -9,7 +9,7 @@
     "demo"
   ],
   "devDependencies": {
-    "npm-check-updates": "17.1.0",
+    "npm-check-updates": "17.1.13",
     "prettier-package-json": "2.8.0"
   }
 }
