@@ -1,6 +1,6 @@
 {
   "name": "@cs124/client-id",
-  "version": "2025.1.0",
+  "version": "2025.7.0",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
