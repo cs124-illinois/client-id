@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "checker": "npm run eslint && npm run tsc && npm run prettier && npm run depcheck",
-    "depcheck": "depcheck --ignore-dirs .next,.rush,bundled --ignores=eslint-*,prettier-plugin-*",
+    "depcheck": "depcheck --ignore-dirs .next,.rush,bundled --ignores=eslint-*,prettier-plugin-*,@types/node",
     "eslint": "eslint --fix pages --max-warnings=0 --ext .ts,.tsx",
     "lint": "next lint",
     "ncu": "ncu",
@@ -15,25 +15,26 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@cs124/client-id": "2024.8.1",
-    "next": "15.1.4",
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "@cs124/client-id": "2025.1.0",
+    "next": "15.4.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "@types/node": "22.10.6",
-    "@types/react": "19.0.6",
+    "@eslint/eslintrc": "^3.3.1",
+    "@types/node": "24.0.14",
+    "@types/react": "19.1.8",
     "depcheck": "1.4.7",
-    "eslint": "9.18.0",
-    "eslint-config-next": "15.1.4",
-    "eslint-config-prettier": "10.0.1",
-    "eslint-plugin-prettier": "5.2.1",
-    "eslint-plugin-react-hooks": "5.1.0",
-    "npm-check-updates": "17.1.13",
-    "prettier": "3.4.2",
+    "eslint": "9.31.0",
+    "eslint-config-next": "15.4.1",
+    "eslint-config-prettier": "10.1.5",
+    "eslint-plugin-prettier": "5.5.1",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "npm-check-updates": "18.0.1",
+    "prettier": "3.6.2",
     "prettier-package-json": "2.8.0",
     "prettier-plugin-organize-imports": "4.1.0",
-    "sass": "1.83.1",
-    "typescript": "5.7.3"
+    "sass": "1.89.2",
+    "typescript": "5.8.3"
   }
 }
