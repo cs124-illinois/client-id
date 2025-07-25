@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "checker": "npm run eslint && npm run tsc && npm run prettier && npm run depcheck && npm run build",
+    "check": "npm run eslint && npm run tsc && npm run prettier && npm run depcheck && npm run build",
     "clean": "rimraf dist",
     "depcheck": "depcheck --ignores=prettier-plugin-*,rimraf --ignore-dirs=dist",
     "eslint": "eslint src/**",

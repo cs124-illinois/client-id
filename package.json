@@ -4,10 +4,12 @@
     "ncu": "ncu",
     "prettier": "prettier-package-json --write"
   },
-  "workspaces": [
-    "react",
-    "demo"
-  ],
+  "workspaces": {
+    "packages": [
+      "react",
+      "demo"
+    ]
+  },
   "devDependencies": {
     "npm-check-updates": "18.0.1",
     "prettier-package-json": "2.8.0"

@@ -8,7 +8,7 @@ This is a monorepo containing a React library for client identification and a Ne
 
 - **`react/`** - Main library package (`@cs124/client-id`) that provides React components for generating and tracking unique browser and tab IDs
 - **`demo/`** - Next.js demo application showcasing the library functionality  
-- Root workspace manages both packages with Yarn workspaces
+- Root workspace manages both packages with NPM workspaces
 
 ## Development Commands
 
@@ -17,7 +17,7 @@ This is a monorepo containing a React library for client identification and a Ne
 - **Type checking**: `npm run tsc` - TypeScript compilation check without output
 - **Linting**: `npm run eslint` - ESLint for source files
 - **Code formatting**: `npm run prettier` - Prettier with import organization
-- **Full check**: `npm run checker` - Runs eslint, tsc, prettier, depcheck, and build
+- **Full check**: `npm run check` - Runs eslint, tsc, prettier, depcheck, and build
 - **Watch mode**: `npm run watch` or `npm run start` - TypeScript compilation in watch mode
 - **Dependency check**: `npm run depcheck` - Checks for unused dependencies
 
@@ -27,7 +27,7 @@ This is a monorepo containing a React library for client identification and a Ne
 - **Production server**: `npm run serve` - Serves production build
 - **Type checking**: `npm run tsc` - TypeScript compilation check
 - **Linting**: `npm run eslint` - ESLint with auto-fix
-- **Full check**: `npm run checker` - Runs eslint, tsc, prettier, and depcheck
+- **Full check**: `npm run check` - Runs eslint, tsc, prettier, and depcheck
 
 ### Root Workspace
 - **Update dependencies**: `npm run ncu` - Check for dependency updates
