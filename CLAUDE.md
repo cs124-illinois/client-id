@@ -58,3 +58,7 @@ The main library (`react/src/index.tsx`) provides:
 ## Version Strategy
 
 This project uses date-based versioning: `YYYY.M.minor` (e.g., `2025.1.0`).
+
+## Dependency Management
+
+- Always use fully-pinned dependencies in package.json files (no ~ or ^ wildcards)
